@@ -34,6 +34,12 @@
 		</script>
 	</head>
 	<body>
+		<h3>Background calculation using a cross-origin IFrame</h3>
+		<p>This example uses an IFrame that is loaded from a different origin.
+		While the only allowed communication channel is via postMessage, the calculations
+		are single-threaded.</p>
+		<p>Click on the Calculate button, and you can see the UI is practically frozen until the last
+		calculation is completed.</p>
 		<button onClick="calc()">Calculate</button>
 		<div>
 			<label>Fibonacci(41): </label>

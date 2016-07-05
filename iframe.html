@@ -34,6 +34,11 @@
 		</script>
 	</head>
 	<body>
+		<h3>Background calculation using an IFrame</h3>
+		<p>This example uses an IFrame to offload the calculations. But because IFrames are inherently
+		non-threadsafe, there are no parallel processing takes place.</p>
+		<p>Click on the Calculate button, and you can see the UI is practically frozen until the last
+		calculation is completed.</p>
 		<button onClick="calc()">Calculate</button>
 		<div>
 			<label>Fibonacci(41): </label>

@@ -27,6 +27,11 @@
 		</script>
 	</head>
 	<body>
+		<h3>Background calculation using a Web Worker</h3>
+		<p>This example uses a Web Worker. Workers are inherently parallel, and you can see the
+		calculations are running on different threads.</p>
+		<p>Click on the Calculate button, and you can see the UI is not affected by the calculations. It
+		stays responsive, indicating the processing is running on different threads.</p>
 		<button onClick="calc()">Calculate</button>
 		<div>
 			<label>Fibonacci(41): </label>

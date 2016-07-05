@@ -52,6 +52,11 @@
 		</script>
 	</head>
 	<body>
+		<h3>Background calculation using an inline Web Worker</h3>
+		<p>This example uses an inline Web Worker. It's the same as the previous, but it does not need
+		the code to be loaded from a different file.</p>
+		<p>Click on the Calculate button, and you can see the UI is not affected by the calculations. It
+		stays responsive, indicating the processing is running on different threads.</p>
 		<button onClick="calc()">Calculate</button>
 		<div>
 			<label>Fibonacci(41): </label>
