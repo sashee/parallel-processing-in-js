@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<script>
+			const calculateFibonacci = (num) => {
+				return new Promise((resolve, reject) => {
+					const iframe = document.createElement("iframe");
+					iframe.src="https://127.0.0.1:8080/iframe-code.html";
+					iframe.style.display="none";
+					iframe.onerror = (e) => {
+						iframe.remove();
+						reject(e);
+					};
+					iframe.onload = () => {
+						window.addEventListener("message", (e) => {
+							if (iframe.contentWindow === e.source) {
+								iframe.remove();
+								resolve(e.data);
+							}
+						});
+						iframe.contentWindow.postMessage(num, "*");
+					};
+					document.body.appendChild(iframe);
+				});
+			};
+			calc = () => {
+				for (let i = 1; i <= 4; i++) {
+					const e = document.getElementById("result" + i);
+					e.value = "Calculating...";
+					calculateFibonacci(40 + i).then((res) => {
+						e.value = res;
+					});
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<button onClick="calc()">Calculate</button>
+		<div>
+			<label>Fibonacci(41): </label>
+			<input id="result1" disabled>
+		</div>
+		<div>
+			<label>Fibonacci(42): </label>
+			<input id="result2" disabled>
+		</div>
+		<div>
+			<label>Fibonacci(43): </label>
+			<input id="result3" disabled>
+		</div>
+		<div>
+			<label>Fibonacci(44): </label>
+			<input id="result4" disabled>
+		</div>
+	</body>
+</html>
+
