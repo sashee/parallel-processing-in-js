@@ -9,6 +9,11 @@ _Note_: The fibonacci calculation code is purposely left slow in order to demons
 * [Web Worker](https://sashee.github.io/parallel-processing-in-js/worker.html)
 * [Inline Web Worker](https://sashee.github.io/parallel-processing-in-js/inline-worker.html)
 
+You can also see how to use the worker-loader in Webpack:
+
+* [Default](https://sashee.github.io/parallel-processing-in-js/webpack/dist/index.html)
+* [Inline](https://sashee.github.io/parallel-processing-in-js/webpack/dist/inline.html)
+
 And two examples, that shows the same can not be achieved with IFrames:
 
 * [IFrame](https://sashee.github.io/parallel-processing-in-js/iframe.html)
