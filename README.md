@@ -9,6 +9,10 @@ _Note_: The fibonacci calculation code is purposely left slow in order to demons
 * [Web Worker](https://sashee.github.io/parallel-processing-in-js/worker.html)
 * [Inline Web Worker](https://sashee.github.io/parallel-processing-in-js/inline-worker.html)
 
+To see some examples on how you could pass different types of data to and from the Workers:
+
+* [Data Passing](https://sashee.github.io/parallel-processing-in-js/data-passing.html)
+* 
 You can also see how to use the worker-loader in Webpack:
 
 * [Default](https://sashee.github.io/parallel-processing-in-js/webpack/dist/index.html)
