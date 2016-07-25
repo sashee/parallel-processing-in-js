@@ -1,0 +1,90 @@
+<html>
+	<head>
+		<!-- http://stackoverflow.com/a/6454685/2032154 -->
+		<script id="worker" type="javascript/worker">
+			onmessage = (e) => {
+				const data = e.data;
+				console.log("In worker thread:");
+				if (data instanceof ArrayBuffer) {
+					console.log("ArrayBuffer.byteLength:" + data.byteLength);
+
+					postMessage(null);
+				}else {
+					console.log(data);
+
+					postMessage(data);
+				}
+			};
+
+		</script>
+		<script>
+			const invokeWorker = (data, transferables) => {
+				return new Promise((resolve, reject) => {
+					const code = URL.createObjectURL(new Blob([
+						document.getElementById("worker").textContent
+					]));
+
+					const worker = new Worker(code);
+					worker.onerror = (e) => {
+						worker.terminate();
+						URL.revokeObjectURL(code);
+						reject(e);
+					};
+					worker.onmessage = (e) => {
+						worker.terminate();
+						URL.revokeObjectURL(code);
+						resolve(e.data);
+					}
+					worker.postMessage(data, transferables);
+				});
+			};
+			(() => {
+				const ab = new ArrayBuffer(100);
+
+				// Objects are working
+				console.log("====Passing basic objects====");
+				invokeWorker({a: "b"}).then((res) => {
+					console.log("In main thread:");
+					console.log(res);
+				})
+				.then(() => {
+					console.log("====Passing objects with circular references====");
+					// Circular references are working
+					let a = {};
+					let b = {a};
+					a.b = b;
+					let object = {a, b};
+					return invokeWorker(object);
+				})
+				.then((res) => {
+					console.log("In main thread:");
+					console.log(res);
+				})
+				.then(() => {
+					console.log("====Copying an ArrayBuffer====");
+					return invokeWorker(ab);
+				})
+				.then((res) => {
+					// The arrayBuffer is transferred
+					console.log("In main thread:");
+					console.log("ArrayBuffer.byteLength:" + ab.byteLength);
+				})
+				.then(() => {
+					console.log("====Transferring an ArrayBuffer====");
+					return invokeWorker(ab, [ab]);
+				})
+				.then((res) => {
+					// The arrayBuffer is transferred
+					console.log("In main thread:");
+					console.log("ArrayBuffer.byteLength:" + ab.byteLength);
+				})
+			})();
+		</script>
+	</head>
+	<body>
+		<h3>Passing data to/from the Web Worker</h3>
+		<p>This example demonstrates a few ways you can communicate with a Worker.</p>
+		<p>Please check the console to see the different results.</p>
+	</body>
+</html>
+
